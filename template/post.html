@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <title>Skilvul</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Skilvul</a>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <h1 id="loading">Loading....</h1>
+      <h1 id="not-found" class="d-none">Not Found</h1>
+      <div id="detail-berita" class="row d-none">
+        <h1 id="page-title" class="text-center mb-5 text-capitalize">
+          Detail Post
+        </h1>
+        <div class="col-xs-12 col-sm-6 mb-3">
+          <div class="card w-100">
+            <img class="card-img-top" src="" alt="Skilvul" />
+            <div class="card-body">
+              <p class="card-text"></p>
+            </div>
+            <div
+              class="
+                card-footer
+                d-flex
+                align-items-center
+                gap-3
+                position-relative
+              "
+            >
+              <div class="d-inline-block">
+                <img
+                  id="author-img"
+                  src=""
+                  alt="Skilvul"
+                  style="width: 50px; height: 50px"
+                  class="rounded-circle"
+                />
+              </div>
+              <div class="text-muted d-inline-block">
+                <a
+                  id="author-name"
+                  class="
+                    m-0
+                    text-decoration-none text-reset text-capitalize
+                    fw-bolder
+                    stretched-link
+                  "
+                  href=""
+                ></a>
+                <p id="author-email" class="m-0 fw-lighter"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="komentar-berita" class="col-xs-12 col-sm-6 mb-3">
+          <ul id="list-group" class="list-group w-100"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./post.js"></script>
+  </body>
+</html>
