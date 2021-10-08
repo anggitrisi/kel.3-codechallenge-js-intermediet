@@ -13,6 +13,7 @@ const createPostElement = (thumbnail, post) => {
   const elCard = document.createElement('div');
   const elCardImg = document.createElement('img');
   const elCardBody = document.createElement('div');
+
   const elCardTitle = document.createElement('h5');
   const elCardBtn = document.createElement('a');
 
@@ -20,6 +21,7 @@ const createPostElement = (thumbnail, post) => {
   elCard.classList.add('card', 'w-100', 'my-3');
   elCardImg.classList.add('card-img-top');
   elCardBody.classList.add('card-body');
+  
   elCardTitle.classList.add('card-title');
   elCardBtn.classList.add('btn', 'btn-primary', 'w-100', 'stretched-link');
 
@@ -33,12 +35,21 @@ const createPostElement = (thumbnail, post) => {
   elCol.appendChild(elCard);
 
   // EDIT HERE
+  elCol.querySelector('img').setAttribute('src',thumbnail);
+  elCol.querySelector('h5').innerHTML=post.title;
+  elCol.querySelector('a.btn').setAttribute('href',`./post.html?post_id=${post.id}`);
 
   return elCol;
 };
 
 const renderPosts = async () => {
-  // EDIT HERE
+  let posts  = await getPosts ()
+  posts.map(async post=> {
+    // console.log(post)
+    let thumbnail = await getRandomPic ()
+    const elCol = createPostElement(thumbnail,post);
+    elDaftarBerita.appendChild(elCol)
+  })
 };
 
 renderPosts();

@@ -1,4 +1,8 @@
-const params; // tempat menampung parameter yang ada
+import { getPost, getPostComments, getRandomPic,getRandomProfile,getAuthor } from './helpers.js';
+
+const queryString = window.location.search
+const urlParams = new URLSearchParams(queryString);
+const params = urlParams.get('post_id'); // tempat menampung parameter yang ada
 
 const elPageTitle = document.querySelector('#page-title');
 const elDetailBerita = document.querySelector('#detail-berita');
@@ -32,7 +36,39 @@ const createListElement = (comment) => {
 };
 
 const renderPost = async () => {
-  // EDIT HERE
+  //EDIT HERE
+  let post  = await getPost(params)
+  let thumbnail;
+  let authorProfile;
+  let comments;
+  let author;
+
+  if(post){
+    thumbnail = await getRandomPic()
+    authorProfile = await getRandomProfile();
+    comments = await getPostComments(params);
+    author = await getAuthor(post[0].userId);
+    
+    comments.map(comment =>{
+    let elListItem = createListElement(comment)
+    elListGroup.appendChild(elListItem)
+    })
+    console.log(author);
+
+    elDetailBerita.classList.remove('d-none');
+    elLoading.classList.add('d-none');
+    console.log(post)
+    elPageTitle.innerHTML= post[0].title;
+    elCardImg.setAttribute('src',`${thumbnail}`)
+    elCardText.innerHTML=post[0].body
+    elCardAuthorImg.setAttribute('src',`${authorProfile}`)
+    elCardAuthorName.innerHTML=author[0].name
+    elCardAuthorName.setAttribute('href',`./author.html?author_id=${author[0].id}`)
+    elCardAuthorEmail.innerHTML=author[0].email
+  } else {
+    elNotFound.classList.remove("d-none");
+    
+  }
 };
 
 renderPost();
