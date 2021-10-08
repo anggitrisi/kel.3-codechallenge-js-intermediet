@@ -1,4 +1,8 @@
-const params;
+import {getAuthor, getPostsByAuthor,getRandomPic} from "./helpers.js";
+
+const queryString = window.location.search
+const urlParams = new URLSearchParams(queryString);
+const params = urlParams.get('author_id'); // tempat menampung parameter yang ada
 
 const elPageTitle = document.querySelector('#page-title');
 const elPostList = document.querySelector('#post-list');
@@ -25,10 +29,30 @@ const createPostElement = (thumbnail, post) => {
       </div>
     </div>`
   );
+  return elCol
 };
 
 const renderPosts = async () => {
   // EDIT HERE
+  let getPostsByA  = await getPostsByAuthor(params)
+  let author = await getAuthor(params);
+  
+  if(getPostsByA){
+  getPostsByA.map(async post=> {
+    // console.log(post)
+    let thumbnail = await getRandomPic ()
+    const elCol = createPostElement(thumbnail,post);
+    elPostList.appendChild(elCol)
+  })
+  elLoading.classList.add("d-none");
+  elPostList.classList.remove("d-none");
+  elPageTitle.innerHTML=author[0].name
+  } else {
+    elEmptyPost.classList.remove("d-none");
+  }
+
 };
 
 renderPosts();
+
+
