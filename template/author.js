@@ -1,4 +1,4 @@
-import {getPostsByAuthor,getRandomPic} from "./helpers.js";
+import {getPostsByAuthor,getRandomPic, getAuthor} from "./helpers.js";
 
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString);
@@ -23,26 +23,33 @@ const createPostElement = (thumbnail, post) => {
           <div class="card-body">
             <h5 class="card-title">${post.title}</h5>
             <p class="card-text">${post.body}</p>
-            <a href="/post.html?post_id=${post.id}" class="btn btn-primary w-100 stretched-link">Read More</a>
+            <a href="./post.html?post_id=${post.id}" class="btn btn-primary w-100 stretched-link">Read More</a>
           </div>
         </div>
       </div>
     </div>`
   );
+  return elCol
 };
 
 const renderPosts = async () => {
   // EDIT HERE
   let getPostsByA  = await getPostsByAuthor(params)
-  console.log(getPostsByA)
-  getPostsByA.map(async post=> {
-    // console.log(post)
-    let thumbnail = await getRandomPic ()
-    const elCol = createPostElement(thumbnail,post);
-    elPostList.appendChild(elCol)
-  })
-  elLoading.classList.add("d-none");
-  elPostList.classList.remove("d-none");
+  let author = await getAuthor(params)
+  console.log(author)
+  if(getPostsByA){
+    getPostsByA.map(async post => {
+      console.log(post)
+      let thumbnail = await getRandomPic()
+      const elCol = createPostElement(thumbnail, post)
+      elPostList.appendChild(elCol)
+    })
+    elLoading.classList.add("d-none")
+    elPostList.classList.remove("d-none")
+    elPageTitle.innerHTML = author[0].name
+  } else{
+    elEmptyPost.classList.remove("d-none")
+  }
 
 
 };
